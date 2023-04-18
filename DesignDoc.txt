@@ -1,0 +1,31 @@
+ 
+Lightweight Process Monitor
+
+Overview:
+Develop a simple command-line process monitor that provides information about running processes on a system, including memory usage, CPU usage, and other relevant metrics.
+
+Features:
+
+    Process List: Display a list of running processes, along with their process IDs, names, and status (e.g., running, sleeping, etc.).
+
+    Process Metrics: Show memory usage (e.g., resident set size), CPU usage (e.g., percentage of total CPU time), and other relevant metrics for each process.
+
+    Sorting & Filtering: Allow users to sort processes by various criteria, such as memory usage, CPU usage, or process ID. Provide options to filter processes by user, name, or status.
+
+    Real-time Updates: Implement real-time updates of process information, with adjustable refresh intervals.
+
+    System Summary: Display a system-wide summary, including total CPU usage, memory usage, and the number of running processes.
+
+Implementation:
+Choose a language like C, C++, or Rust for this project, as they offer low-level access to system resources. For platform-specific system information, you can use libraries like libproc (for Linux) or PSAPI (for Windows). Familiarize yourself with system calls, process management, and memory management to collect the required information for each process.
+
+Both projects will help you develop skills in different areas of computer science, such as cryptography, systems programming, and working with low-level APIs.
+
+
+Tasks TO-DO:
+
+Find out how to access the resources I need from linux - memory, cpu, process id, gpu, motherboard, etc.
+
+Find out how to display the data via something like ncurses.
+
+Meet above requirements, add more tasks as they come up.
