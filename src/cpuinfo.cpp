@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "file_loader.cpp"
+#include "string_helper.cpp"
 
 /**
  * @brief Class for storing information about a single cpu thread from /proc/cpuinfo.
@@ -67,61 +68,115 @@ class cpuinfo
             address_sizes, power_management
         };
 
-        std::vector<std::tuple<std::string, FIELDS>> field_map
+        std::map<std::string, FIELDS> field_map = 
         {
-            std::make_tuple("processor", processor),
-            std::make_tuple("vendor_id", vendor_id),
-            std::make_tuple("cpu_family", cpu_family),
-            std::make_tuple("model", model),
-            std::make_tuple("model_name", model_name),
-            std::make_tuple("stepping", stepping),
-            std::make_tuple("microcode", microcode),
-            std::make_tuple("clock_speed", clock_speed),
-            std::make_tuple("cache", cache),
-            std::make_tuple("physical_id", physical_id),
-            std::make_tuple("siblings", siblings),
-            std::make_tuple("core_id", core_id),
-            std::make_tuple("cpu_cores", cpu_cores),
-            std::make_tuple("apicid", apicid),
-            std::make_tuple("initial_apicid", initial_apicid),
-            std::make_tuple("fpu", fpu),
-            std::make_tuple("fpu_execution", fpu_execution),
-            std::make_tuple("cpuid_level", cpuid_level),
-            std::make_tuple("wp", wp),
-            std::make_tuple("flags", flags),
-            std::make_tuple("bugs", bugs),
-            std::make_tuple("bogomips", bogomips),
-            std::make_tuple("tlb_size", tlb_size),
-            std::make_tuple("clflush_size", clflush_size),
-            std::make_tuple("cache_alignment", cache_alignment),
-            std::make_tuple("address_sizes", address_sizes),
-            std::make_tuple("power_management", power_management)
+            {"processor:", processor}, {"vendor_id:", vendor_id}, {"cpufamily:", cpu_family}, {"model:", model}, {"modelname:", model_name}, {"stepping:", stepping}, 
+            {"microcode:", microcode}, {"cpuMHz:", clock_speed}, {"cachesize:", cache}, {"physicalid:", physical_id}, {"siblings:", siblings}, {"coreid:", core_id}, 
+            {"cpucores:", cpu_cores}, {"apicid:", apicid}, {"initialapicid:", initial_apicid}, {"fpu:", fpu}, {"fpu_exception:", fpu_execution}, {"cpuidlevel:", cpuid_level}, 
+            {"wp:", wp}, {"flags:", flags}, {"bugs:", bugs}, {"bogomips:", bogomips}, {"TLBsize:", tlb_size}, {"clflushsize:", clflush_size}, {"cache_alignment:", cache_alignment}, 
+            {"addresssizes:", address_sizes}, {"powermanagement:", power_management}
         };
-
+            
         std::vector<cpu *> threads;
         
     public:
 
         void updateInfo() 
         {
-            
-            cpu *current_thread = new cpu();
-
-            for (auto line : cputext) 
-            {
-                line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
-            }
-        }
-
-        std::vector<std::string> formatInfo()
-        {
             std::vector<std::string> cputext = file_loader::load_file("/proc/cpuinfo");
-            std::vector<std::string> formatted;
+            cpu *thread = new cpu();
 
-            for (auto line : cputext) 
+            for (auto line : cputext)
             {
-                formatted.emplace_back(line.erase(remove_if(line.begin(), line.end(), isspace), line.end()));
+                std::string field = string_helper::remove_whitespace(line.substr(0, line.find(":") + 1));
+                std::string value = line.substr(line.find(":") + 1);
+
+                try
+                {
+                    switch (field_map[field]) 
+                    {
+                        case processor:
+                            thread->processor = std::stoi(value);
+                            break;
+                        case vendor_id:
+                            thread->vendor_id = value;
+                            break;
+                        case cpu_family:
+                            thread->cpu_family = std::stoi(value);
+                            break;
+                        case model:
+                            thread->model = std::stoi(value);
+                            break;
+                        case model_name:
+                            thread->model_name = value;
+                            break;
+                        case stepping:
+                            thread->stepping = std::stoi(value);
+                            break;
+                        case microcode:
+                            thread->microcode = value;
+                            break;
+                        case clock_speed:
+                            thread->clock_speed = std::stod(value);
+                            break;
+                        case cache:
+                            thread->cache = std::stoi(value);
+                            break;
+                        case physical_id:
+                            thread->physical_id = std::stoi(value);
+                            break;
+                        case siblings:
+                            thread->siblings = std::stoi(value);
+                            break;
+                        case core_id:
+                            thread->core_id = std::stoi(value);
+                            break;
+                        case cpu_cores:
+                            thread->cpu_cores = std::stoi(value);
+                            break;
+                        case apicid:
+                            thread->apicid = std::stoi(value);
+                            break;
+                        case initial_apicid:
+                            thread->initial_apicid = std::stoi(value);
+                            break;
+                        case fpu:
+                            thread->fpu = value;
+                            break;
+                        case fpu_execution:
+                            thread->fpu_execution = value;
+                            break;
+                        case cpuid_level:
+                            thread->cpuid_level = std::stoi(value);
+                            break;
+                        case wp:
+                            thread->wp = value;
+                            break;
+                        case tlb_size:
+                            thread->tlb_size = value;
+                            break;
+                        case clflush_size:
+                            thread->clflush_size = std::stoi(value);
+                            break;
+                        case cache_alignment:
+                            thread->cache_alignment = std::stoi(value);
+                            break;
+                        default:
+                            //std::cout << "Error: " << field << " is not a valid field" << std::endl;
+                            break;
+                    }
+                }
+
+                catch(const std::exception& e)
+                {
+                    continue;
+                }
+                
+
+                
             }
+
+            this->threads.push_back(thread);
         }
 
         void printInfo() {
@@ -146,11 +201,11 @@ class cpuinfo
                 std::cout << "fpu_execution: " << thread->fpu_execution << std::endl;
                 std::cout << "cpuid_level: " << thread->cpuid_level << std::endl;
                 std::cout << "wp: " << thread->wp << std::endl;
-                std::cout << "flags: ";
-                for (auto flag : thread->flags) 
-                {
-                    std::cout << flag << " ";
-                }
+                // std::cout << "flags: ";
+                // for (auto flag : thread->flags) 
+                // {
+                //     std::cout << flag << " ";
+                // }
 
                 std::cout << std::endl;
             }
