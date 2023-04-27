@@ -1,8 +1,10 @@
 #include <string>
+#include <vector>
 
 /**
  * @brief Class for manipulating strings.
- * 
+ * @author Lilith Ernst
+ * @version 4-27-23
  */
 class string_helper {
     public:
@@ -25,6 +27,30 @@ class string_helper {
         return formatted_string;
     }
 
+    /**
+     * @brief Splits a string into a vector of strings.
+     * 
+     * @param str The string to split.
+     * @param delimiter The character to split the string by.
+     * @return std::vector<std::string> The vector of strings.
+     */
+    static std::vector<std::string> split_string(std::string str, char delimiter) {
+        std::vector<std::string> split_string;
+        std::string current_string = "";
+
+        for (char c : str) {
+            if (c == delimiter) {
+                split_string.push_back(current_string);
+                current_string = "";
+
+            } else {
+                current_string += c;
+            }
+        }
+
+        split_string.push_back(current_string);
+        return split_string;
+    }
 
     private:
 

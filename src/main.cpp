@@ -5,7 +5,7 @@ int main()
     cpuinfo cpuinfo;
 
     cpuinfo.updateInfo();
-    cpuinfo.printInfo();
+    cpuinfo.printInfo_AllCores();
 
     return 0;
 }
