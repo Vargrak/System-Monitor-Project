@@ -9,14 +9,18 @@
 #include "string_helper.cpp"
 
 /**
- * @brief Class for storing information about a single cpu thread from /proc/cpuinfo.
+ * @brief Class for storing information about the system's cpu from /proc/cpuinfo.
  * @author Lilith Ernst
- * @version 4-27-23
+ * @version 4-28-23
  * 
  */
 class cpuinfo
 {
     private:
+
+        /**
+         * @brief Class for storing information about a single cpu thread from /proc/cpuinfo.
+         */
         class cpu
         {
             public:
@@ -76,8 +80,10 @@ class cpuinfo
             {"wp:", wp}, {"flags:", flags}, {"bugs:", bugs}, {"bogomips:", bogomips}, {"TLBsize:", tlb_size}, {"clflushsize:", clflush_size}, {"cache_alignment:", cache_alignment}, 
             {"addresssizes:", address_sizes}, {"powermanagement:", power_management}, {"", new_thread}
         };
-            
+
+        //Fields   
         std::vector<cpu *> threads;
+        std::vector<cpu *> physical_cores;
         
     public:
 
@@ -224,7 +230,7 @@ class cpuinfo
         void printInfo_AllCores() {
             for (auto thread : this->threads) 
             {
-                std::cout << "INFORMATION FOR THREAD " << thread->processor << ":" << std::endl;
+                std::cout << "INFORMATION FOR THREADS " << thread->processor << ":" << std::endl;
                 std::cout << "Processor                         : " << thread->processor << std::endl;
                 std::cout << "Vendor id                         :" << thread->vendor_id << std::endl;
                 std::cout << "CPU Family                        : " << thread->cpu_family << std::endl;
@@ -280,38 +286,72 @@ class cpuinfo
         //WIP
         void printInfo_Summation() {
             std::vector<cpu *> unique_phyiscal_cores = this->getUniquePhysicalCores();
+
             std::cout << "INFORMATION FOR ALL CORES:" << std::endl;
             for (auto core : unique_phyiscal_cores) {
-                std::cout << "processor: " << core->processor << std::endl;
-                std::cout << "vendor_id: " << core->vendor_id << std::endl;
-                std::cout << "cpu_family: " << core->cpu_family << std::endl;
-                std::cout << "model: " << core->model << std::endl;
-                std::cout << "model_name: " << core->model_name << std::endl;
-                std::cout << "stepping: " << core->stepping << std::endl;
-                std::cout << "microcode: " << core->microcode << std::endl;
-                std::cout << "clock_speed: " << core->clock_speed << std::endl;
-                std::cout << "cache: " << core->cache << std::endl;
-                std::cout << "physical_id: " << core->physical_id << std::endl;
-                std::cout << "siblings: " << core->siblings << std::endl;
-                std::cout << "core_id: " << core->core_id << std::endl;
-                std::cout << "cpu_cores: " << core->cpu_cores << std::endl;
-                std::cout << "apicid: " << core->apicid << std::endl;
-                std::cout << "initial_apicid: " << core->initial_apicid << std::endl;
-                std::cout << "fpu: " << core->fpu << std::endl;
-                std::cout << "fpu_execution: " << core->fpu_execution << std::endl;
-                std::cout << "cpuid_level: " << core->cpuid_level << std::endl;
-                std::cout << "wp: " << core->wp << std::endl;
-                std::cout << "tlb_size: " << core->tlb_size << std::endl;
-                std::cout << "clflush_size: " << core->clflush_size << std::endl;
-                std::cout << "cache_alignment: " << core->cache_alignment << std::endl;
+                std::cout << "\nINFORMATION FOR PHYSICAL CORE " << core->processor << ":" << std::endl;
+                std::cout << "Vendor id                         :" << core->vendor_id << std::endl;
+                std::cout << "CPU Family                        : " << core->cpu_family << std::endl;
+                std::cout << "Model                             : " << core->model << std::endl;
+                std::cout << "Model name                        :" << core->model_name << std::endl;
+                std::cout << "Stepping                          : " << core->stepping << std::endl;
+                std::cout << "Microcode                         :" << core->microcode << std::endl;
+                std::cout << "Average Clock Speed               : " << core->clock_speed << " MHz" << std::endl;
+                std::cout << "Bogomips                          : " << core->bogomips << std::endl;
+                std::cout << "L2 Cache                          : " << core->cache << " KB" << std::endl;
+                std::cout << "Physical id                       : " << core->physical_id << std::endl;
+                std::cout << "Number of cores (total)           : " << core->cpu_cores << std::endl;
+                std::cout << "APIC id                           : " << core->apicid << std::endl;
+                std::cout << "Initial APIC id                   : " << core->initial_apicid << std::endl;
+                std::cout << "Floating-point Support:           :" << core->fpu << std::endl;
+                std::cout << "Floating-point exception Support  :" << core->fpu_execution << std::endl;
+                std::cout << "CPU id level:                     : " << core->cpuid_level << std::endl;
+                std::cout << "Write-Protect:                    :" << core->wp << std::endl;
+                std::cout << "Translation lookaside buffer size :" << core->tlb_size << std::endl;
+                std::cout << "CLFLUSH size                      : " << core->clflush_size << std::endl;
+                std::cout << "Cache alignment                   : " << core->cache_alignment << std::endl;
+                std::cout << "\nFlags:\n";
+                for (auto flag : core->flags) 
+                {
+                    std::cout << flag << " ";
+                }
+
+                std::cout << "\n\nBugs:\n";
+                for (auto bug : core->bugs) 
+                {
+                    std::cout << bug << " ";
+                }
+
+                std::cout << "\n\nAddress sizes:\n";
+                for (auto size : core->address_sizes) 
+                {
+                    std::cout << size << " ";
+                }
+
+                std::cout << "\n\nPower management:\n";
+                for (auto management : core->power_management) 
+                {
+                    std::cout << management << " ";
+                }
+
+                std::cout << "\n------------------------------------\n";
+                std::cout << std::endl;
             }
         }
 
+        /**
+         * @brief Get/Update information about the physical cores
+         * 
+         * @return std::vector<cpu *> containing the physical cores
+         */
         std::vector<cpu *> getUniquePhysicalCores() {
             std::vector<cpu *> unique_physical_cores;
+            
+            //Find unique physical cores
             for (auto thread : this->threads) {
                 if (unique_physical_cores.empty()) {
                     unique_physical_cores.push_back(thread);
+
                 } else {
                     for (auto core : unique_physical_cores) {
                         if (thread->physical_id != core->physical_id) {
@@ -319,6 +359,31 @@ class cpuinfo
                         }
                     }
                 }
+            }
+
+            this->physical_cores = unique_physical_cores;
+
+
+            //Update average clock speed for each physical core
+            for (auto core : this->physical_cores) {
+                //Per physical core
+                int total_cache = 0;
+                double avg_clock = 0;
+                int threads = 0;
+
+                //Accumulate info from threads
+                for (auto thread : this->threads) {
+                    if (thread->physical_id == core->physical_id) {
+                        total_cache += thread->cache;
+                        avg_clock += thread->clock_speed;
+                        threads++;
+                    }
+                }
+
+                //Format and add to physical cores
+                avg_clock /= threads;
+                core->clock_speed = avg_clock;
+                core->cache = total_cache;
             }
 
             return unique_physical_cores;

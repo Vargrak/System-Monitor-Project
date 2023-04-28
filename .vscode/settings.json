@@ -79,7 +79,12 @@
         "__verbose_abort": "cpp",
         "ios": "cpp",
         "locale": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "codecvt": "cpp",
+        "iomanip": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "__mutex_base": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
