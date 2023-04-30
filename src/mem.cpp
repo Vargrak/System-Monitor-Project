@@ -7,6 +7,12 @@
 
 #include "file_loader.cpp"
 
+/**
+ * @brief Class for storing system memory information.
+ * @author Lilith Ernst
+ * 
+ * @version 4-30-23
+ */
 class mem {
     private:
     int memory_total;
@@ -95,6 +101,11 @@ class mem {
 
     public:
 
+
+    /**
+     * @brief Updates the memory information.
+     * 
+     */
     void updateInfo() {
         std::vector<std::string> memtext = file_loader::load_file("/proc/meminfo");
         
@@ -324,6 +335,10 @@ class mem {
         //this->memory_total
     }
 
+    /**
+     * @brief Prints the memory information
+     * 
+     */
     void printMemoryInfo() {
 
         //std::cout << "Memory Total: " << memory_total << std::endl;

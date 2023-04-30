@@ -11,7 +11,7 @@
 /**
  * @brief Class for storing information about the system's cpu from /proc/cpuinfo.
  * @author Lilith Ernst
- * @version 4-28-23
+ * @version 4-30-23
  * 
  */
 class cpuinfo {
@@ -83,6 +83,10 @@ class cpuinfo {
         
     public:
 
+        /**
+         * @brief Updates the information stored in the cpuinfo class.
+         * 
+         */
         void updateInfo() {
             std::vector<std::string> cputext = file_loader::load_file("/proc/cpuinfo");
             cpu *thread = new cpu();
@@ -219,6 +223,10 @@ class cpuinfo {
             getUniquePhysicalCores();
         }
 
+        /**
+         * @brief Prints information for all threads.
+         * 
+         */
         void printInfo_AllCores() {
             for (auto thread : this->threads) 
             {
@@ -275,7 +283,10 @@ class cpuinfo {
             }
         }
 
-        //WIP
+        /**
+         * @brief Prints information for each physical cpu.
+         * 
+         */
         void printInfo_Summation() {
             std::vector<cpu *> unique_phyiscal_cores = this->getUniquePhysicalCores();
 
