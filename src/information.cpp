@@ -12,8 +12,7 @@
  * @version 4-17-23
  * 
  */
-class information
-{
+class information {
     private:
 
 

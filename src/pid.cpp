@@ -1,5 +1,4 @@
-class pid
-{
+class pid {
     private:
 
     public:

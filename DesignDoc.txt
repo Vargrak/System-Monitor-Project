@@ -29,3 +29,10 @@ Find out how to access the resources I need from linux - memory, cpu, process id
 Find out how to display the data via something like ncurses.
 
 Meet above requirements, add more tasks as they come up.
+
+
+
+
+
+//////////////
+Set formatting to KR

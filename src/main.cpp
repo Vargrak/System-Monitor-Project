@@ -1,7 +1,6 @@
 #include "cpuinfo.cpp"
 
-int main()
-{
+int main() {
     cpuinfo cpuinfo;
 
     cpuinfo.updateInfo();

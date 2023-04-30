@@ -8,8 +8,7 @@
  * @version 4-17-23
  * 
  */
-class file_loader
-{
+class file_loader {
     private:
 
         //File stored in class for working with.
@@ -24,13 +23,11 @@ class file_loader
          * @param file_select File to load, stores each newline as a separate string.
          * @return std::vector<std::string> 
          */
-        static std::vector<std::string> load_file(std::string file_select)
-        {
+        static std::vector<std::string> load_file(std::string file_select) {
             std::ifstream input_file(file_select);
             std::vector<std::string> input;
 
-            for (std::string line; std::getline(input_file, line);) 
-            {
+            for (std::string line; std::getline(input_file, line);) {
                 input.push_back(line);
             }
 
@@ -44,13 +41,11 @@ class file_loader
          * @param file_select 
          * @return std::vector<std::string> 
          */
-        std::vector<std::string> load_file_store(std::string file_select)
-        {
+        std::vector<std::string> load_file_store(std::string file_select) {
             std::ifstream input_file(file_select);
             std::vector<std::string> input;
 
-            for (std::string line; std::getline(input_file, line);) 
-            {
+            for (std::string line; std::getline(input_file, line);) {
                 input.push_back(line);
             }
 
@@ -64,8 +59,7 @@ class file_loader
          * 
          * @return std::vector<std::string> 
          */
-        std::vector<std::string> get_loaded_file() 
-        {
+        std::vector<std::string> get_loaded_file() {
             return this->loaded_file;
         }
 
@@ -73,8 +67,7 @@ class file_loader
          * @brief Clears the vector storing the loaded file
          * 
          */
-        void clear_loaded_file() 
-        {
+        void clear_loaded_file() {
             this->loaded_file.clear();
         }
 };

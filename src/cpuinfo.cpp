@@ -14,15 +14,13 @@
  * @version 4-28-23
  * 
  */
-class cpuinfo
-{
+class cpuinfo {
     private:
 
         /**
          * @brief Class for storing information about a single cpu thread from /proc/cpuinfo.
          */
-        class cpu
-        {
+        class cpu {
             public:
                 int processor;
                 std::string vendor_id;
@@ -63,8 +61,7 @@ class cpuinfo
                 cpu() {}
         };
 
-        enum FIELDS 
-        {
+        enum FIELDS {
             processor, vendor_id, cpu_family, model, model_name, stepping, 
             microcode, clock_speed, cache, physical_id, siblings, core_id, 
             cpu_cores, apicid, initial_apicid, fpu, fpu_execution, cpuid_level, 
@@ -72,8 +69,7 @@ class cpuinfo
             address_sizes, power_management, new_thread
         };
 
-        std::map<std::string, FIELDS> field_map = 
-        {
+        std::map<std::string, FIELDS> field_map = {
             {"processor:", processor}, {"vendor_id:", vendor_id}, {"cpufamily:", cpu_family}, {"model:", model}, {"modelname:", model_name}, {"stepping:", stepping}, 
             {"microcode:", microcode}, {"cpuMHz:", clock_speed}, {"cachesize:", cache}, {"physicalid:", physical_id}, {"siblings:", siblings}, {"coreid:", core_id}, 
             {"cpucores:", cpu_cores}, {"apicid:", apicid}, {"initialapicid:", initial_apicid}, {"fpu:", fpu}, {"fpu_exception:", fpu_execution}, {"cpuidlevel:", cpuid_level}, 
@@ -87,20 +83,16 @@ class cpuinfo
         
     public:
 
-        void updateInfo() 
-        {
+        void updateInfo() {
             std::vector<std::string> cputext = file_loader::load_file("/proc/cpuinfo");
             cpu *thread = new cpu();
 
-            for (auto line : cputext)
-            {
+            for (auto line : cputext) {
                 std::string field = string_helper::remove_whitespace(line.substr(0, line.find(":") + 1));
                 std::string value = line.substr(line.find(":") + 1);
 
-                try
-                {
-                    switch (field_map[field]) 
-                    {
+                try {
+                    switch (field_map[field]) {
                         case processor:
                             thread->processor = std::stoi(value);
                             break;
@@ -218,13 +210,13 @@ class cpuinfo
                             std::cout << "Error: " << field << " is not a valid field" << std::endl;
                             break;
                     }
-                }
 
-                catch(const std::exception& e)
-                {
+                } catch(const std::exception& e) {
                     continue;
                 }  
             }
+
+            getUniquePhysicalCores();
         }
 
         void printInfo_AllCores() {
@@ -311,26 +303,22 @@ class cpuinfo
                 std::cout << "CLFLUSH size                      : " << core->clflush_size << std::endl;
                 std::cout << "Cache alignment                   : " << core->cache_alignment << std::endl;
                 std::cout << "\nFlags:\n";
-                for (auto flag : core->flags) 
-                {
+                for (auto flag : core->flags) {
                     std::cout << flag << " ";
                 }
 
                 std::cout << "\n\nBugs:\n";
-                for (auto bug : core->bugs) 
-                {
+                for (auto bug : core->bugs) {
                     std::cout << bug << " ";
                 }
 
                 std::cout << "\n\nAddress sizes:\n";
-                for (auto size : core->address_sizes) 
-                {
+                for (auto size : core->address_sizes) {
                     std::cout << size << " ";
                 }
 
                 std::cout << "\n\nPower management:\n";
-                for (auto management : core->power_management) 
-                {
+                for (auto management : core->power_management) {
                     std::cout << management << " ";
                 }
 
