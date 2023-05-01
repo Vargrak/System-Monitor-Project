@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>
 #include <iostream>
 #include <map>
@@ -6,6 +8,7 @@
 #include <vector>
 
 #include "file_loader.cpp"
+#include "string_helper.cpp"
 
 /**
  * @brief Class for storing system memory information.
@@ -15,64 +18,64 @@
  */
 class mem {
     private:
-    int memory_total;
-    int memory_free;
-    int memory_available;
-    int buffers;
-    int cached;
-    int swap_cached;
-    int active;
-    int inactive;
-    int active_anon;
-    int inactive_anon;
-    int active_file;
-    int inactive_file;
-    int unevictable;
-    int mlocked;
-    int swap_total;
-    int swap_free;
-    int zswap;
-    int zswapped;
-    int dirty;
-    int writeback;
-    int anon_pages;
-    int mapped;
-    int shmem;
-    int slab;
-    int sreclaimable;
-    int sunreclaim;
-    int kernel_stack;
-    int page_tables;
-    int nfs_unstable;
-    int bounce;
-    int writeback_tmp;
-    int commit_limit;
-    int committed_as;
-    int vmalloc_total;
-    int vmalloc_used;
-    int vmalloc_chunk;
-    int percpu;
-    int hardware_corrupted;
-    int anon_huge_pages;
-    int shmem_huge_pages;
-    int shmem_pmd_mapped;
-    int file_huge_pages;
-    int file_pmd_mapped;
-    int cmatotal;
-    int cmafree;
-    int huge_pages_total;
-    int huge_pages_free;
-    int huge_pages_rsvd;
-    int huge_pages_surp;
-    int hugepagesize;
-    int hugetlb;
-    int directmap_4k;
-    int directmap_2m;
-    int directmap_1g;
-
+    long TotalMemory;
+    long FreeMemory;
+    long AvailableMemory;
+    long Buffers;
+    long Cached;
+    long SwapCached;
+    long Active;
+    long Inactive;
+    long ActiveAnon;
+    long InactiveAnon;
+    long ActiveFile;
+    long InactiveFile;
+    long Unevictable;
+    long Mlocked;
+    long SwapTotal;
+    long SwapFree;
+    long Zswap;
+    long Zswapped;
+    long Dirty;
+    long Writeback;
+    long AnonPages;
+    long Mapped;
+    long Shmem;
+    long Slab;
+    long Sreclaimable;
+    long Sunreclaim;
+    long KernelStack;
+    long PageTables;
+    long NFSUnstable;
+    long Bounce;
+    long WritebackTmp;
+    long CommitLimit;
+    long CommittedAs;
+    long VmallocTotal;
+    long VmallocUsed;
+    long VmallocChunk;
+    long Percpu;
+    long HardwareCorrupted;
+    long AnonHugePages;
+    long ShmemHugePages;
+    long ShmemPmdMapped;
+    long FileHugePages;
+    long FilePmdMapped;
+    long CmaTotal;
+    long CmaFree;
+    long HugePagesTotal;
+    long HugePagesFree;
+    long HugePagesRsvd;
+    long HugePagesSurp;
+    long Hugepagesize;
+    long Hugetlb;
+    long Directmap4k;
+    long Directmap2m;
+    long Directmap1g;
+    
     enum FIELDS {
-        memory_free, memory_available, buffers, cached, swap_cached, active, inactive, active_anon, inactive_anon, active_file,
-        inactive_file, unevictable, mlocked, swap_total, swap_free, zswap, zswapped, dirty, writeback, anon_pages, mapped, shmem,
+        memory_total, memory_free, memory_available, buffers, cached, swap_cached, active, inactive, active_anon, inactive_anon, active_file,
+        inactive_file, unevictable, mlocked, swap_total, swap_free, zswap, zswapped, dirty, writeback, anon_pages, mapped, shmem, kreclaimable,
         slab, sreclaimable, sunreclaim, kernel_stack, page_tables, nfs_unstable, bounce, writeback_tmp, commit_limit, committed_as,
         vmalloc_total, vmalloc_used, vmalloc_chunk, percpu, hardware_corrupted, anon_huge_pages, shmem_huge_pages, shmem_pmd_mapped,
         file_huge_pages, file_pmd_mapped, cmatotal, cmafree, huge_pages_total, huge_pages_free, huge_pages_rsvd, huge_pages_surp,
@@ -85,9 +88,9 @@ class mem {
         {"Inactive", mem::FIELDS::inactive}, {"Active(anon)", mem::FIELDS::active_anon}, {"Inactive(anon)", mem::FIELDS::inactive_anon},
         {"Active(file)", mem::FIELDS::active_file}, {"Inactive(file)", mem::FIELDS::inactive_file}, {"Unevictable", mem::FIELDS::unevictable},
         {"Mlocked", mem::FIELDS::mlocked}, {"SwapTotal", mem::FIELDS::swap_total}, {"SwapFree", mem::FIELDS::swap_free},
-        {"ZSwap", mem::FIELDS::zswap}, {"ZSwap(pooled)", mem::FIELDS::zswapped}, {"Dirty", mem::FIELDS::dirty}, {"Writeback", mem::FIELDS::writeback},
-        {"AnonPages", mem::FIELDS::anon_pages}, {"Mapped", mem::FIELDS::mapped}, {"Shmem", mem::FIELDS::shmem}, {"Slab", mem::FIELDS::slab},
-        {"SReclaimable", mem::FIELDS::sreclaimable}, {"SUnreclaim", mem::FIELDS::sunreclaim}, {"KernelStack", mem::FIELDS::kernel_stack},
+        {"Zswap", mem::FIELDS::zswap}, {"Zswapped", mem::FIELDS::zswapped}, {"Dirty", mem::FIELDS::dirty}, {"Writeback", mem::FIELDS::writeback},
+        {"AnonPages", mem::FIELDS::anon_pages}, {"Mapped", mem::FIELDS::mapped}, {"Shmem", mem::FIELDS::shmem}, {"KReclaimable", mem::FIELDS::kreclaimable},
+        {"Slab", mem::FIELDS::slab}, {"SReclaimable", mem::FIELDS::sreclaimable}, {"SUnreclaim", mem::FIELDS::sunreclaim}, {"KernelStack", mem::FIELDS::kernel_stack},
         {"PageTables", mem::FIELDS::page_tables}, {"NFS_Unstable", mem::FIELDS::nfs_unstable}, {"Bounce", mem::FIELDS::bounce},
         {"WritebackTmp", mem::FIELDS::writeback_tmp}, {"CommitLimit", mem::FIELDS::commit_limit}, {"Committed_AS", mem::FIELDS::committed_as},
         {"VmallocTotal", mem::FIELDS::vmalloc_total}, {"VmallocUsed", mem::FIELDS::vmalloc_used}, {"VmallocChunk", mem::FIELDS::vmalloc_chunk},
@@ -96,10 +99,18 @@ class mem {
         {"FilePmdMapped", mem::FIELDS::file_pmd_mapped}, {"CmaTotal", mem::FIELDS::cmatotal}, {"CmaFree", mem::FIELDS::cmafree},
         {"HugePages_Total", mem::FIELDS::huge_pages_total}, {"HugePages_Free", mem::FIELDS::huge_pages_free}, {"HugePages_Rsvd", mem::FIELDS::huge_pages_rsvd},
         {"HugePages_Surp", mem::FIELDS::huge_pages_surp}, {"Hugepagesize", mem::FIELDS::hugepagesize}, {"Hugetlb", mem::FIELDS::hugetlb},
-        {"DirectMap4k", mem::FIELDS::directmap_4k}, {"DirectMap2M", mem::FIELDS::directmap_2m}, {"DirectMap1G", mem::FIELDS::directmap_1g}
+        {"DirectMap4k", mem::FIELDS::directmap_4k}, {"DirectMap2M", mem::FIELDS::directmap_2m}, {"DirectMap1G", mem::FIELDS::directmap_1g}, {"MemTotal", mem::FIELDS::memory_total}
     };
 
     public:
+
+    /**
+     * @brief Construct a new mem object
+     * 
+     */
+    mem() {
+        updateInfo();
+    }
 
 
     /**
@@ -111,219 +122,227 @@ class mem {
         
         for (auto line : memtext) {
             std::string field = string_helper::remove_whitespace(line.substr(0, line.find(":")));
-            std::string value = line.substr(line.find(":") + 1);
+            std::string value = string_helper::remove_whitespace(line.substr(line.find(":") + 1));
 
             switch (field_map[field]) {
+                case mem::FIELDS::memory_total:
+                    TotalMemory = std::stol(value);
+                    break;
+
                 case mem::FIELDS::memory_free:
-                    memory_free = std::stoi(value);
+                    FreeMemory = std::stol(value);
                     break;
 
                 case mem::FIELDS::memory_available:
-                    memory_available = std::stoi(value);
+                    AvailableMemory = std::stol(value);
                     break;
 
                 case mem::FIELDS::buffers:
-                    buffers = std::stoi(value);
+                    Buffers = std::stol(value);
                     break;
 
                 case mem::FIELDS::cached:
-                    cached = std::stoi(value);
+                    Cached = std::stol(value);
                     break;
 
                 case mem::FIELDS::swap_cached:
-                    swap_cached = std::stoi(value);
+                    SwapCached = std::stol(value);
                     break;
 
                 case mem::FIELDS::active:
-                    active = std::stoi(value);
+                    Active = std::stol(value);
                     break;
 
                 case mem::FIELDS::inactive:
-                    inactive = std::stoi(value);
+                    Inactive = std::stol(value);
                     break;
 
                 case mem::FIELDS::active_anon:
-                    active_anon = std::stoi(value);
+                    ActiveAnon = std::stol(value);
                     break;
 
                 case mem::FIELDS::inactive_anon:
-                    inactive_anon = std::stoi(value);
+                    InactiveAnon = std::stol(value);
                     break;
 
                 case mem::FIELDS::active_file:
-                    active_file = std::stoi(value);
+                    ActiveFile = std::stol(value);
                     break;
 
                 case mem::FIELDS::inactive_file:
-                    inactive_file = std::stoi(value);
+                    InactiveFile = std::stol(value);
                     break;
 
                 case mem::FIELDS::unevictable:
-                    unevictable = std::stoi(value);
+                    Unevictable = std::stol(value);
                     break;
 
                 case mem::FIELDS::mlocked:
-                    mlocked = std::stoi(value);
+                    Mlocked = std::stol(value);
                     break;
                 
                 case mem::FIELDS::swap_total:
-                    swap_total = std::stoi(value);
+                    SwapTotal = std::stol(value);
                     break;
 
                 case mem::FIELDS::swap_free:
-                    swap_free = std::stoi(value);
+                    SwapFree = std::stol(value);
                     break;
 
                 case mem::FIELDS::zswap:
-                    zswap = std::stoi(value);
+                    Zswap = std::stol(value);
                     break;
 
                 case mem::FIELDS::zswapped:
-                    zswapped = std::stoi(value);
+                    Zswapped = std::stol(value);
                     break;
 
                 case mem::FIELDS::dirty:
-                    dirty = std::stoi(value);
+                    Dirty = std::stol(value);
                     break;
 
                 case mem::FIELDS::writeback:
-                    writeback = std::stoi(value);
+                    Writeback = std::stol(value);
                     break;
 
                 case mem::FIELDS::anon_pages:
-                    anon_pages = std::stoi(value);
+                    AnonPages = std::stol(value);
                     break;
 
                 case mem::FIELDS::mapped:
-                    mapped = std::stoi(value);
+                    Mapped = std::stol(value);
                     break;
 
                 case mem::FIELDS::shmem:
-                    shmem = std::stoi(value);
+                    Shmem = std::stol(value);
+                    break;
+
+                case mem::FIELDS::kreclaimable:
+                    Kreclaimable = std::stol(value);
                     break;
 
                 case mem::FIELDS::slab:
-                    slab = std::stoi(value);
+                    Slab = std::stol(value);
                     break;
 
                 case mem::FIELDS::sreclaimable:
-                    sreclaimable = std::stoi(value);
+                    Sreclaimable = std::stol(value);
                     break;
 
                 case mem::FIELDS::sunreclaim:
-                    sunreclaim = std::stoi(value);
+                    Sunreclaim = std::stol(value);
                     break;
 
                 case mem::FIELDS::kernel_stack:
-                    kernel_stack = std::stoi(value);
+                    KernelStack = std::stol(value);
                     break;
 
                 case mem::FIELDS::page_tables:
-                    page_tables = std::stoi(value);
+                    PageTables = std::stol(value);
                     break;
 
                 case mem::FIELDS::nfs_unstable:
-                    nfs_unstable = std::stoi(value);
+                    NFSUnstable = std::stol(value);
                     break;
 
                 case mem::FIELDS::bounce:
-                    bounce = std::stoi(value);
+                    Bounce = std::stol(value);
                     break;
 
                 case mem::FIELDS::writeback_tmp:
-                    writeback_tmp = std::stoi(value);
+                    WritebackTmp = std::stol(value);
                     break;
 
                 case mem::FIELDS::commit_limit:
-                    commit_limit = std::stoi(value);
+                    CommitLimit = std::stol(value);
                     break;
 
                 case mem::FIELDS::committed_as:
-                    committed_as = std::stoi(value);
+                    CommittedAs = std::stol(value);
                     break;
 
                 case mem::FIELDS::vmalloc_total:    
-                    vmalloc_total = std::stoi(value);
+                    VmallocTotal = std::stol(value);
                     break;
 
                 case mem::FIELDS::vmalloc_used:
-                    vmalloc_used = std::stoi(value);
+                    VmallocUsed = std::stol(value);
                     break;
                 
                 case mem::FIELDS::vmalloc_chunk:
-                    vmalloc_chunk = std::stoi(value);
+                    VmallocChunk = std::stol(value);
                     break;
 
                 case mem::FIELDS::percpu:
-                    percpu = std::stoi(value);
+                    Percpu = std::stol(value);
                     break;
 
                 case mem::FIELDS::hardware_corrupted:
-                    hardware_corrupted = std::stoi(value);
+                    HardwareCorrupted = std::stol(value);
                     break;
 
                 case mem::FIELDS::anon_huge_pages:
-                    anon_huge_pages = std::stoi(value);
+                    AnonHugePages = std::stol(value);
                     break;
                 
                 case mem::FIELDS::shmem_huge_pages:
-                    shmem_huge_pages = std::stoi(value);
+                    ShmemHugePages = std::stol(value);
                     break;
 
                 case mem::FIELDS::shmem_pmd_mapped:
-                    shmem_pmd_mapped = std::stoi(value);
+                    ShmemPmdMapped = std::stol(value);
                     break;
 
                 case mem::FIELDS::file_huge_pages:
-                    file_huge_pages = std::stoi(value);
+                    FileHugePages = std::stol(value);
                     break;
 
                 case mem::FIELDS::file_pmd_mapped:
-                    file_pmd_mapped = std::stoi(value);
+                    FilePmdMapped = std::stol(value);
                     break;
 
                 case mem::FIELDS::cmatotal:
-                    cmatotal = std::stoi(value);
+                    CmaTotal = std::stol(value);
                     break;
 
                 case mem::FIELDS::cmafree:
-                    cmafree = std::stoi(value);
+                    CmaFree = std::stol(value);
                     break;
 
                 case mem::FIELDS::huge_pages_total:
-                    huge_pages_total = std::stoi(value);
+                    HugePagesTotal = std::stol(value);
                     break;
 
                 case mem::FIELDS::huge_pages_free:
-                    huge_pages_free = std::stoi(value);
+                    HugePagesFree = std::stol(value);
                     break;
 
                 case mem::FIELDS::huge_pages_rsvd:
-                    huge_pages_rsvd = std::stoi(value);
+                    HugePagesRsvd = std::stol(value);
                     break;
 
                 case mem::FIELDS::huge_pages_surp:
-                    huge_pages_surp = std::stoi(value);
+                    HugePagesSurp = std::stol(value);
                     break;
 
                 case mem::FIELDS::hugepagesize:
-                    hugepagesize = std::stoi(value);
+                    Hugepagesize = std::stol(value);
                     break;
 
                 case mem::FIELDS::hugetlb:
-                    hugetlb = std::stoi(value);
+                    Hugetlb = std::stol(value);
                     break;
 
                 case mem::FIELDS::directmap_4k:
-                    directmap_4k = std::stoi(value);
+                    Directmap4k = std::stol(value);
                     break;
 
                 case mem::FIELDS::directmap_2m:
-                    directmap_2m = std::stoi(value);
+                    Directmap2m = std::stol(value);
                     break;
 
                 case mem::FIELDS::directmap_1g:
-                    directmap_1g = std::stoi(value);
+                    Directmap1g = std::stol(value);
                     break;
 
                 default:
@@ -331,8 +350,6 @@ class mem {
 
             }
         }
-
-        //this->memory_total
     }
 
     /**
@@ -341,61 +358,60 @@ class mem {
      */
     void printMemoryInfo() {
 
-        //std::cout << "Memory Total: " << memory_total << std::endl;
-        std::cout << "Memory Free: " << memory_free << std::endl;
-        std::cout << "Memory Available: " << memory_available << std::endl;
-        std::cout << "Buffers: " << buffers << std::endl;
-        std::cout << "Cached: " << cached << std::endl;
-        std::cout << "Swap Cached: " << swap_cached << std::endl;
-        std::cout << "Active: " << active << std::endl;
-        std::cout << "Inactive: " << inactive << std::endl;
-        std::cout << "Active Anon: " << active_anon << std::endl;
-        std::cout << "Inactive Anon: " << inactive_anon << std::endl;
-        std::cout << "Active File: " << active_file << std::endl;
-        std::cout << "Inactive File: " << inactive_file << std::endl;
-        std::cout << "Unevictable: " << unevictable << std::endl;
-        std::cout << "Mlocked: " << mlocked << std::endl;
-        std::cout << "Swap Total: " << swap_total << std::endl;
-        std::cout << "Swap Free: " << swap_free << std::endl;
-        std::cout << "Zswap: " << zswap << std::endl;
-        std::cout << "Zswapped: " << zswapped << std::endl;
-        std::cout << "Dirty: " << dirty << std::endl;
-        std::cout << "Writeback: " << writeback << std::endl;
-        std::cout << "Anon Pages: " << anon_pages << std::endl;
-        std::cout << "Mapped: " << mapped << std::endl;
-        std::cout << "Shmem: " << shmem << std::endl;
-        std::cout << "Slab: " << slab << std::endl;
-        std::cout << "Sreclaimable: " << sreclaimable << std::endl;
-        std::cout << "Sunreclaim: " << sunreclaim << std::endl;
-        std::cout << "Kernel Stack: " << kernel_stack << std::endl;
-        std::cout << "Page Tables: " << page_tables << std::endl;
-        std::cout << "NFS Unstable: " << nfs_unstable << std::endl;
-        std::cout << "Bounce: " << bounce << std::endl;
-        std::cout << "Writeback Tmp: " << writeback_tmp << std::endl;
-        std::cout << "Commit Limit: " << commit_limit << std::endl;
-        std::cout << "Committed As: " << committed_as << std::endl;
-        std::cout << "Vmalloc Total: " << vmalloc_total << std::endl;
-        std::cout << "Vmalloc Used: " << vmalloc_used << std::endl;
-        std::cout << "Vmalloc Chunk: " << vmalloc_chunk << std::endl;
-        std::cout << "Percpu: " << percpu << std::endl;
-        std::cout << "Hardware Corrupted: " << hardware_corrupted << std::endl;
-        std::cout << "Anon Huge Pages: " << anon_huge_pages << std::endl;
-        std::cout << "Shmem Huge Pages: " << shmem_huge_pages << std::endl;
-        std::cout << "Shmem Pmd Mapped: " << shmem_pmd_mapped << std::endl;
-        std::cout << "File Huge Pages: " << file_huge_pages << std::endl;
-        std::cout << "File Pmd Mapped: " << file_pmd_mapped << std::endl;
-        std::cout << "CMA Total: " << cmatotal << std::endl;
-        std::cout << "CMA Free: " << cmafree << std::endl;
-        std::cout << "Huge Pages Total: " << huge_pages_total << std::endl;
-        std::cout << "Huge Pages Free: " << huge_pages_free << std::endl;
-        std::cout << "Huge Pages Rsrvd: " << huge_pages_rsvd << std::endl;
-        std::cout << "Huge Pages Surp: " << huge_pages_surp << std::endl;
-        std::cout << "Hugepagesize: " << hugepagesize << std::endl;
-        std::cout << "Hugetlb: " << hugetlb << std::endl;
-        std::cout << "Directmap 4k: " << directmap_4k << std::endl;
-        std::cout << "Directmap 2M: " << directmap_2m << std::endl;
-        std::cout << "Directmap 1G: " << directmap_1g << std::endl;
-        std::cout << std::endl;
-    }
-
+        std::cout << "SYSTEM MEMORY INFO:" << std::endl;
+        std::cout << "Total Memory      : " << TotalMemory << std::endl;
+        std::cout << "Available Memory  : " << AvailableMemory << std::endl;
+        std::cout << "Buffers           : " << Buffers << std::endl;
+        std::cout << "Cached            : " << Cached << std::endl;
+        std::cout << "Swap Cached       : " << SwapCached << std::endl;
+        std::cout << "Active            : " << Active << std::endl;
+        std::cout << "Inactive          : " << Inactive << std::endl;
+        std::cout << "Active Anon       : " << ActiveAnon << std::endl;
+        std::cout << "Inactive Anon     : " << InactiveAnon << std::endl;
+        std::cout << "Active File       : " << ActiveFile << std::endl;
+        std::cout << "Inactive File     : " << InactiveFile << std::endl;
+        std::cout << "Unevictable       : " << Unevictable << std::endl;
+        std::cout << "Mlocked           : " << Mlocked << std::endl;
+        std::cout << "Swap Total        : " << SwapTotal << std::endl;
+        std::cout << "Swap Free         : " << SwapFree << std::endl;
+        std::cout << "Zswap             : " << Zswap << std::endl;
+        std::cout << "Zswapped          : " << Zswapped << std::endl;
+        std::cout << "Dirty             : " << Dirty << std::endl;
+        std::cout << "Writeback         : " << Writeback << std::endl;
+        std::cout << "Anon Pages        : " << AnonPages << std::endl;
+        std::cout << "Mapped            : " << Mapped << std::endl;
+        std::cout << "Shmem             : " << Shmem << std::endl;
+        std::cout << "Slab              : " << Slab << std::endl;
+        std::cout << "Sreclaimable      : " << Sreclaimable << std::endl;
+        std::cout << "Sunreclaim        : " << Sunreclaim << std::endl;
+        std::cout << "Kernel Stack      : " << KernelStack << std::endl;
+        std::cout << "Page Tables       : " << PageTables << std::endl;
+        std::cout << "NFS Unstable      : " << NFSUnstable << std::endl;
+        std::cout << "Bounce            : " << Bounce << std::endl;
+        std::cout << "Writeback Tmp     : " << WritebackTmp << std::endl;
+        std::cout << "Commit Limit      : " << CommitLimit << std::endl;
+        std::cout << "Committed As      : " << CommittedAs << std::endl;
+        std::cout << "Vmalloc Total     : " << VmallocTotal << std::endl;
+        std::cout << "Vmalloc Used      : " << VmallocUsed << std::endl;
+        std::cout << "Vmalloc Chunk     : " << VmallocChunk << std::endl;
+        std::cout << "Percpu            : " << Percpu << std::endl;
+        std::cout << "Hardware Corrupted: " << HardwareCorrupted << std::endl;
+        std::cout << "Anon Huge Pages   : " << AnonHugePages << std::endl;
+        std::cout << "Shmem Huge Pages  : " << ShmemHugePages << std::endl;
+        std::cout << "Shmem Pmd Mapped  : " << ShmemPmdMapped << std::endl;
+        std::cout << "File Huge Pages   : " << FileHugePages << std::endl;
+        std::cout << "File Pmd Mapped   : " << FilePmdMapped << std::endl;
+        std::cout << "Cma Total         : " << CmaTotal << std::endl;
+        std::cout << "Cma Free          : " << CmaFree << std::endl;
+        std::cout << "Huge Pages Total  : " << HugePagesTotal << std::endl;
+        std::cout << "Huge Pages Free   : " << HugePagesFree << std::endl;
+        std::cout << "Huge Pages Rsvd   : " << HugePagesRsvd << std::endl;
+        std::cout << "Huge Pages Surp   : " << HugePagesSurp << std::endl;
+        std::cout << "Huge Page Size    : " << Hugepagesize << std::endl;
+        std::cout << "Huge TLB          : " << Hugetlb << std::endl;
+        std::cout << "Direct Map 4K     : " << Directmap4k << std::endl;
+        std::cout << "Direct Map 2M     : " << Directmap2m << std::endl;
+        std::cout << "Direct Map 1G     : " << Directmap1g << std::endl;
+    }   
 };
+

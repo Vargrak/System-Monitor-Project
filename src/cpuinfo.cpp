@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>
 #include <iostream>
 #include <map>
@@ -82,6 +84,14 @@ class cpuinfo {
         std::vector<cpu *> physical_cores;
         
     public:
+
+        /**
+         * @brief Construct a new cpuinfo object
+         * 
+         */
+        cpuinfo() {
+            updateInfo();
+        }
 
         /**
          * @brief Updates the information stored in the cpuinfo class.

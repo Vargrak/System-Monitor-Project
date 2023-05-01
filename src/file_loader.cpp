@@ -1,3 +1,5 @@
+#pragma once
+
 #include <fstream>
 #include <string>
 #include <vector>
@@ -31,6 +33,7 @@ class file_loader {
                 input.push_back(line);
             }
 
+            input_file.close();
             return input;
         }
 
@@ -51,6 +54,7 @@ class file_loader {
 
             this->loaded_file = input;
 
+            input_file.close();
             return input;
         }
 
