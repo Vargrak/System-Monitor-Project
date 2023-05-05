@@ -1,7 +1,5 @@
-#pragma once
-
-#include "cpuinfo.cpp"
-#include "mem.cpp"
+#include "cpuinfo.hpp"
+#include "mem.hpp"
 
 int main() {
     cpuinfo cpuinfo;

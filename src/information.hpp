@@ -1,4 +1,6 @@
 #pragma once
+#ifndef INFORMATION_HPP
+#define INFORMATION_HPP
 
 #include <string>
 #include <vector>
@@ -6,7 +8,7 @@
 
 #include "cpuinfo.cpp"
 #include "mem.cpp"
-#include "pid.cpp"
+
 
 /**
  * @brief Class that holds and compiles information from all the cpus, processes, memory, etc; and stores
@@ -19,8 +21,9 @@ class information {
     private:
         cpuinfo system_cpu;
         mem system_mem;
-        std::vector<pid> processes;
 
 
     public:
 };
+
+#endif
