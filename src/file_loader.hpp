@@ -30,6 +30,16 @@ class file_loader {
         static std::vector<std::string> load_file(std::string file_select);
 
         /**
+         * @brief Loads a file into a vector of strings. Static version that does not store the vector
+         * in this class. Overload to set a delimiter for the file.
+         * 
+         * @param file_select File to load
+         * @param delimiter Char to split the file on
+         * @return std::vector<std::string> 
+         */
+        static std::vector<std::string> load_file(std::string file_select, char delimiter);
+
+        /**
          * @brief Non-static version of load_file for loading a text file into a vector
          * of strings. Stores the vector in the class for later access.
          * 

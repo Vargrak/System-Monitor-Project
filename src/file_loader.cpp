@@ -19,6 +19,18 @@ std::vector<std::string> file_loader::load_file(std::string file_select) {
     return input;
 }
 
+std::vector<std::string> file_loader::load_file(std::string file_select, char delimiter) {
+    std::ifstream input_file(file_select);
+    std::vector<std::string> input;
+
+    for (std::string line; std::getline(input_file, line, delimiter);) {
+        input.push_back(line);
+    }
+
+    input_file.close();
+    return input;
+}
+
 /**
  * @brief Non-static version of load_file for loading a text file into a vector
  * of strings. Stores the vector in the class for later access.
