@@ -1,16 +1,14 @@
-#include "cpuinfo.hpp"
-#include "mem.hpp"
-#include "processes.hpp"
+#include "sysinfo.hpp"
 
 int main() {
-    cpuinfo cpuinfo;
-    mem meminfo;
-    processes processinfo;
+    sysinfo system = sysinfo();
 
-    cpuinfo.printInfo_Summation();
-    meminfo.printMemoryInfo();
-    processinfo.print_process_list();
-
+    while (true) {
+        system.updateAllInfo();
+        system.getCpu().printInfo_Summation();
+        system.getMemory().printMemoryInfo();
+        system.getProcesses().printProcessList();
+    }
 
     return 0;
 }

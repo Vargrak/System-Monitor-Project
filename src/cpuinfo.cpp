@@ -3,7 +3,7 @@
 /**
  * @brief Class for storing information about the system's cpu from /proc/cpuinfo.
  * @author Lilith Ernst
- * @version 4-30-23
+ * @version 5-9-23
  * 
  */
 
@@ -16,9 +16,28 @@ cpuinfo::cpuinfo() {
  * 
  */
 void cpuinfo::updateInfo() {
+    if (!this->threads.empty()) {
+        for (auto thread : this->threads) {
+            delete thread;
+        }
+
+        this->threads.clear();
+        this->threads.shrink_to_fit();
+    }
+
+    if (!this->physical_cores.empty()) {
+        for (auto core : this->physical_cores) {
+            delete core;
+        }
+
+
+        this->physical_cores.clear();
+        this->physical_cores.shrink_to_fit();
+    }
+
     std::vector<std::string> cputext = file_loader::load_file("/proc/cpuinfo");
     cpu *thread = new cpu();
-
+    
     for (auto line : cputext) {
         std::string field = string_helper::remove_whitespace(line.substr(0, line.find(":") + 1));
         std::string value = line.substr(line.find(":") + 1);
@@ -26,111 +45,111 @@ void cpuinfo::updateInfo() {
         try {
             switch (field_map[field]) {
                 case processor:
-                    thread->processor = std::stoi(value);
+                    thread->setProcessor(std::stoi(value));
                     break;
 
                 case vendor_id:
-                    thread->vendor_id = value;
+                    thread->setVendorID(value);
                     break;
 
                 case cpu_family:
-                    thread->cpu_family = std::stoi(value);
+                    thread->setCPUFamily(std::stoi(value));
                     break;
 
                 case model:
-                    thread->model = std::stoi(value);
+                    thread->setModel(std::stoi(value));
                     break;
 
                 case model_name:
-                    thread->model_name = value;
+                    thread->setModelName(value);
                     break;
 
                 case stepping:
-                    thread->stepping = std::stoi(value);
+                    thread->setStepping(std::stoi(value));
                     break;
 
                 case microcode:
-                    thread->microcode = value;
+                    thread->setMicrocode(value);
                     break;
 
                 case clock_speed:
-                    thread->clock_speed = std::stod(value);
+                    thread->setClockSpeed(std::stod(value));
                     break;
 
                 case cache:
-                    thread->cache = std::stoi(value);
+                    thread->setCache(std::stoi(value));
                     break;
 
                 case physical_id:
-                    thread->physical_id = std::stoi(value);
+                    thread->setPhysicalID(std::stoi(value));
                     break;
 
                 case siblings:
-                    thread->siblings = std::stoi(value);
+                    thread->setSiblings(std::stoi(value));
                     break;
 
                 case core_id:
-                    thread->core_id = std::stoi(value);
+                    thread->setCoreID(std::stoi(value));
                     break;
 
                 case cpu_cores:
-                    thread->cpu_cores = std::stoi(value);
+                    thread->setCPUCores(std::stoi(value));
                     break;
 
                 case apicid:
-                    thread->apicid = std::stoi(value);
+                    thread->setAPICID(std::stoi(value));
                     break;
 
                 case initial_apicid:
-                    thread->initial_apicid = std::stoi(value);
+                    thread->setInitialAPICID(std::stoi(value));
                     break;
 
                 case fpu:
-                    thread->fpu = value;
+                    thread->setFPU(value);
                     break;
 
                 case fpu_execution:
-                    thread->fpu_execution = value;
+                    thread->setFPUExecution(value);
                     break;
 
                 case cpuid_level:
-                    thread->cpuid_level = std::stoi(value);
+                    thread->setCPUIDLevel(std::stoi(value));
                     break;
 
                 case wp:
-                    thread->wp = value;
+                    thread->setWP(value);
                     break;
 
                 case tlb_size:
-                    thread->tlb_size = value;
+                    thread->setTLBSize(value);
                     break;
 
                 case clflush_size:
-                    thread->clflush_size = std::stoi(value);
+                    thread->setCLFlushSize(std::stoi(value));
                     break;
 
                 case cache_alignment:
-                    thread->cache_alignment = std::stoi(value);
+                    thread->setCacheAlignment(std::stoi(value));
                     break;
 
                 case flags:
-                    thread->flags = string_helper::split_string(value, ' ');
+                    thread->setFlags(string_helper::split_string(value, ' '));
                     break;
 
                 case bugs:
-                    thread->bugs = string_helper::split_string(value, ' ');
+                    thread->setBugs(string_helper::split_string(value, ' '));
                     break;
 
                 case bogomips:
-                    thread->bogomips = std::stod(value);
+                    thread->setBogomips(std::stod(value));
                     break;
 
                 case address_sizes:
-                    thread->address_sizes = string_helper::split_string(value, ',');
+                    thread->setAddressSizes(string_helper::split_string(value, ' '));
                     break;
 
                 case power_management:
-                    thread->power_management = string_helper::split_string(value, ' ');
+                    thread->setPowerManagement(string_helper::split_string(value, ' '));
                     break;
 
                 case new_thread:
@@ -158,50 +177,50 @@ void cpuinfo::updateInfo() {
 void cpuinfo::printInfo_AllCores() {
     for (auto thread : this->threads) 
     {
-        std::cout << "INFORMATION FOR THREADS " << thread->processor << ":" << std::endl;
-        std::cout << "Processor                         : " << thread->processor << std::endl;
-        std::cout << "Vendor id                         :" << thread->vendor_id << std::endl;
-        std::cout << "CPU Family                        : " << thread->cpu_family << std::endl;
-        std::cout << "Model                             : " << thread->model << std::endl;
-        std::cout << "Model name                        :" << thread->model_name << std::endl;
-        std::cout << "Stepping                          : " << thread->stepping << std::endl;
-        std::cout << "Microcode                         :" << thread->microcode << std::endl;
-        std::cout << "Clock speed                       : " << thread->clock_speed << " MHz" << std::endl;
-        std::cout << "Bogomips                          : " << thread->bogomips << std::endl;
-        std::cout << "L2 Cache                          : " << thread->cache << " KB" << std::endl;
-        std::cout << "Physical id                       : " << thread->physical_id << std::endl;
-        std::cout << "Number of Siblings                : " << thread->siblings << std::endl;
-        std::cout << "Core id                           : " << thread->core_id << std::endl;
-        std::cout << "Number of cores (total)           : " << thread->cpu_cores << std::endl;
-        std::cout << "APIC id                           : " << thread->apicid << std::endl;
-        std::cout << "Initial APIC id                   : " << thread->initial_apicid << std::endl;
-        std::cout << "Floating-point Support:           :" << thread->fpu << std::endl;
-        std::cout << "Floating-point exception Support  :" << thread->fpu_execution << std::endl;
-        std::cout << "CPU id level:                     : " << thread->cpuid_level << std::endl;
-        std::cout << "Write-Protect:                    :" << thread->wp << std::endl;
-        std::cout << "Translation lookaside buffer size :" << thread->tlb_size << std::endl;
-        std::cout << "CLFLUSH size                      : " << thread->clflush_size << std::endl;
-        std::cout << "Cache alignment                   : " << thread->cache_alignment << std::endl;
+        std::cout << "INFORMATION FOR THREADS " << thread->getProcessor() << ":" << std::endl;
+        std::cout << "Processor                         : " << thread->getProcessor() << std::endl;
+        std::cout << "Vendor id                         :" << thread->getVendorID() << std::endl;
+        std::cout << "CPU Family                        : " << thread->getCPUFamily() << std::endl;
+        std::cout << "Model                             : " << thread->getModel() << std::endl;
+        std::cout << "Model name                        :" << thread->getModelName() << std::endl;
+        std::cout << "Stepping                          : " << thread->getStepping() << std::endl;
+        std::cout << "Microcode                         :" << thread->getMicrocode() << std::endl;
+        std::cout << "Clock speed                       : " << thread->getClockSpeed() << " MHz" << std::endl;
+        std::cout << "Bogomips                          : " << thread->getBogomips() << std::endl;
+        std::cout << "L2 Cache                          : " << thread->getCache() << " KB" << std::endl;
+        std::cout << "Physical id                       : " << thread->getPhysicalID() << std::endl;
+        std::cout << "Number of Siblings                : " << thread->getSiblings() << std::endl;
+        std::cout << "Core id                           : " << thread->getCoreID() << std::endl;
+        std::cout << "Number of cores (total)           : " << thread->getCPUCores() << std::endl;
+        std::cout << "APIC id                           : " << thread->getAPICID() << std::endl;
+        std::cout << "Initial APIC id                   : " << thread->getInitialAPICID() << std::endl;
+        std::cout << "Floating-point Support:           :" << thread->getFPU() << std::endl;
+        std::cout << "Floating-point exception Support  :" << thread->getFPUExecution() << std::endl;
+        std::cout << "CPU id level:                     : " << thread->getCPUIDLevel() << std::endl;
+        std::cout << "Write-Protect:                    :" << thread->getWP() << std::endl;
+        std::cout << "Translation lookaside buffer size :" << thread->getTLBSize() << std::endl;
+        std::cout << "CLFLUSH size                      : " << thread->getCLFlushSize() << std::endl;
+        std::cout << "Cache alignment                   : " << thread->getCacheAlignment() << std::endl;
         std::cout << "\nFlags:\n";
-        for (auto flag : thread->flags) 
+        for (auto flag : thread->getFlags()) 
         {
             std::cout << flag << " ";
         }
 
         std::cout << "\n\nBugs:\n";
-        for (auto bug : thread->bugs) 
+        for (auto bug : thread->getBugs()) 
         {
             std::cout << bug << " ";
         }
 
         std::cout << "\n\nAddress sizes:\n";
-        for (auto size : thread->address_sizes) 
+        for (auto size : thread->getAddressSizes()) 
         {
             std::cout << size << " ";
         }
 
         std::cout << "\n\nPower management:\n";
-        for (auto management : thread->power_management) 
+        for (auto management : thread->getPowerManagement()) 
         {
             std::cout << management << " ";
         }
@@ -220,44 +239,44 @@ void cpuinfo::printInfo_Summation() {
 
     std::cout << "INFORMATION FOR ALL CORES:" << std::endl;
     for (auto core : unique_phyiscal_cores) {
-        std::cout << "\nINFORMATION FOR PHYSICAL CORE " << core->processor << ":" << std::endl;
-        std::cout << "Vendor id                         :" << core->vendor_id << std::endl;
-        std::cout << "CPU Family                        : " << core->cpu_family << std::endl;
-        std::cout << "Model                             : " << core->model << std::endl;
-        std::cout << "Model name                        :" << core->model_name << std::endl;
-        std::cout << "Stepping                          : " << core->stepping << std::endl;
-        std::cout << "Microcode                         :" << core->microcode << std::endl;
-        std::cout << "Average Clock Speed               : " << core->clock_speed << " MHz" << std::endl;
-        std::cout << "Bogomips                          : " << core->bogomips << std::endl;
-        std::cout << "L2 Cache                          : " << core->cache << " KB" << std::endl;
-        std::cout << "Physical id                       : " << core->physical_id << std::endl;
-        std::cout << "Number of cores (total)           : " << core->cpu_cores << std::endl;
-        std::cout << "APIC id                           : " << core->apicid << std::endl;
-        std::cout << "Initial APIC id                   : " << core->initial_apicid << std::endl;
-        std::cout << "Floating-point Support:           :" << core->fpu << std::endl;
-        std::cout << "Floating-point exception Support  :" << core->fpu_execution << std::endl;
-        std::cout << "CPU id level:                     : " << core->cpuid_level << std::endl;
-        std::cout << "Write-Protect:                    :" << core->wp << std::endl;
-        std::cout << "Translation lookaside buffer size :" << core->tlb_size << std::endl;
-        std::cout << "CLFLUSH size                      : " << core->clflush_size << std::endl;
-        std::cout << "Cache alignment                   : " << core->cache_alignment << std::endl;
+        std::cout << "\nINFORMATION FOR PHYSICAL CORE " << core->getProcessor() << ":" << std::endl;
+        std::cout << "Vendor id                         :" << core->getVendorID() << std::endl;
+        std::cout << "CPU Family                        : " << core->getCPUFamily() << std::endl;
+        std::cout << "Model                             : " << core->getModel() << std::endl;
+        std::cout << "Model name                        :" << core->getModelName() << std::endl;
+        std::cout << "Stepping                          : " << core->getStepping() << std::endl;
+        std::cout << "Microcode                         :" << core->getMicrocode() << std::endl;
+        std::cout << "Average Clock Speed               : " << core->getClockSpeed() << " MHz" << std::endl;
+        std::cout << "Bogomips                          : " << core->getBogomips() << std::endl;
+        std::cout << "L2 Cache                          : " << core->getCache() << " KB" << std::endl;
+        std::cout << "Physical id                       : " << core->getPhysicalID() << std::endl;
+        std::cout << "Number of cores (total)           : " << core->getCPUCores() << std::endl;
+        std::cout << "APIC id                           : " << core->getAPICID() << std::endl;
+        std::cout << "Initial APIC id                   : " << core->getInitialAPICID() << std::endl;
+        std::cout << "Floating-point Support:           :" << core->getFPU() << std::endl;
+        std::cout << "Floating-point exception Support  :" << core->getFPUExecution() << std::endl;
+        std::cout << "CPU id level:                     : " << core->getCPUIDLevel() << std::endl;
+        std::cout << "Write-Protect:                    :" << core->getWP() << std::endl;
+        std::cout << "Translation lookaside buffer size :" << core->getTLBSize() << std::endl;
+        std::cout << "CLFLUSH size                      : " << core->getCLFlushSize() << std::endl;
+        std::cout << "Cache alignment                   : " << core->getCacheAlignment() << std::endl;
         std::cout << "\nFlags:\n";
-        for (auto flag : core->flags) {
+        for (auto flag : core->getFlags()) {
             std::cout << flag << " ";
         }
 
         std::cout << "\n\nBugs:\n";
-        for (auto bug : core->bugs) {
+        for (auto bug : core->getBugs()) {
             std::cout << bug << " ";
         }
 
         std::cout << "\n\nAddress sizes:\n";
-        for (auto size : core->address_sizes) {
+        for (auto size : core->getAddressSizes()) {
             std::cout << size << " ";
         }
 
         std::cout << "\n\nPower management:\n";
-        for (auto management : core->power_management) {
+        for (auto management : core->getPowerManagement()) {
             std::cout << management << " ";
         }
 
@@ -277,12 +296,12 @@ std::vector<cpuinfo::cpu *> cpuinfo::getUniquePhysicalCores() {
     //Find unique physical cores
     for (auto thread : this->threads) {
         if (unique_physical_cores.empty()) {
-            unique_physical_cores.push_back(thread);
+            unique_physical_cores.emplace_back(thread);
 
         } else {
             for (auto core : unique_physical_cores) {
-                if (thread->physical_id != core->physical_id) {
-                    unique_physical_cores.push_back(thread);
+                if (thread->getPhysicalID() != core->getPhysicalID()) {
+                    unique_physical_cores.emplace_back(thread);
                 }
             }
         }
@@ -297,22 +316,41 @@ std::vector<cpuinfo::cpu *> cpuinfo::getUniquePhysicalCores() {
         int total_cache = 0;
         double avg_clock = 0;
         int no_threads = 0;
+        int thread_id = 0;
+        int core_id = 0;
 
         //Accumulate info from threads
         for (auto thread : this->threads) {
-            if (thread->physical_id == core->physical_id) {
-                total_cache += thread->cache;
-                avg_clock += thread->clock_speed;
+            thread_id = thread->getPhysicalID();
+            core_id = core->getPhysicalID();
+
+            if (thread_id == core_id) {
+                total_cache += thread->getCache();
+                avg_clock += thread->getClockSpeed();
                 no_threads++;
             }
         }
 
         //Format and add to physical cores
         avg_clock /= no_threads;
-        core->clock_speed = avg_clock;
-        core->cache = total_cache;
+        core->setClockSpeed(avg_clock);
+        core->setCache(total_cache);
     }
 
     return unique_physical_cores;
 }
+
+/**
+ * @brief Get the Physical Cores object
+ * 
+ * @return std::vector<cpu *> 
+ */
+std::vector<cpuinfo::cpu *> cpuinfo::getPhysicalCores() { return this->physical_cores; }
+
+/**
+ * @brief Get the Threads object
+ * 
+ * @return std::vector<cpu *> 
+ */
+std::vector<cpuinfo::cpu *> cpuinfo::getThreads() { return this->threads; }
 

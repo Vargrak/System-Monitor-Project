@@ -9,6 +9,13 @@
 
 #include "pid.hpp"
 
+/**
+ * @brief Class for representing all processes on the system
+ * @author Lilith Ernst
+ * 
+ * @version 5-9-23
+ * 
+ */
 class processes {
     private:
         std::vector<pid *> process_list;
@@ -16,8 +23,10 @@ class processes {
     public:
         processes();
 
-        std::vector<pid *> generate_process_list();
-        void print_process_list();
+        std::vector<pid *> generateProcessList();
+        void printProcessList();
+
+        void updateInfo();
 };
 
 #endif

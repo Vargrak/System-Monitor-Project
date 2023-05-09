@@ -8,6 +8,13 @@
 
 #include "file_loader.hpp"
 
+/**
+ * @brief Class represents the information of a single process
+ * @author Lilith Ernst
+ * 
+ * @version 5-9-23
+ * 
+ */
 class pid {
     private:
         int process_id;
@@ -22,13 +29,16 @@ class pid {
 
 
     public:
-        pid(int pid);
+        pid(int processid);
+
         std::string get_name() { return this->name; }
         std::string get_cmdline() { return this->cmdline; }
         std::string get_state() { return this->state; }
+
         int get_uid() { return this->uid; }
         int get_gid() { return this->gid; }
         int get_threads() { return this->threads; }
+        
         int get_priority() { return this->priority; }
         int get_nice() { return this->nice; }
 };

@@ -84,7 +84,13 @@
     "iomanip": "cpp",
     "semaphore": "cpp",
     "stop_token": "cpp",
-    "__mutex_base": "cpp"
+    "__mutex_base": "cpp",
+    "charconv": "cpp",
+    "format": "cpp",
+    "forward_list": "cpp",
+    "future": "cpp",
+    "typeindex": "cpp",
+    "valarray": "cpp"
   },
   "C_Cpp.errorSquiggles": "enabled",
   "C_Cpp_Runner.msvcBatchPath": "",
