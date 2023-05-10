@@ -22,17 +22,16 @@ Choose a language like C, C++, or Rust for this project, as they offer low-level
 Both projects will help you develop skills in different areas of computer science, such as cryptography, systems programming, and working with low-level APIs.
 
 
-Tasks TO-DO:
+Current Tasks:
+ - Find and put cpu utilization information in cpuinfo.hpp
+ - Formulate the information into graphs in sysinfo.hpp
+    - Find how to formulate graphs easily displayed in ncurses
+        - Find out ways of displaying with ncurses
 
-Find out how to access the resources I need from linux - memory, cpu, process id, gpu, motherboard, etc.
+- Add different windows with different information and graphs
+    - Separate memory, cpu, and processes into different windows
 
-Find out how to display the data via something like ncurses.
-
-Meet above requirements, add more tasks as they come up.
-
-
-
-
+- Add network monitoring support
 
 //////////////
 Set formatting to KR
