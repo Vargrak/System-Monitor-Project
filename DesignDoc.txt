@@ -1,5 +1,7 @@
  
-Lightweight Process Monitor
+Lightweight Process Monitor 
+    #These notes are mainly for myself in keeping focus on the project at hand
+    
 
 Overview:
 Develop a simple command-line process monitor that provides information about running processes on a system, including memory usage, CPU usage, and other relevant metrics.
@@ -17,10 +19,9 @@ Features:
     System Summary: Display a system-wide summary, including total CPU usage, memory usage, and the number of running processes.
 
 Implementation:
-Choose a language like C, C++, or Rust for this project, as they offer low-level access to system resources. For platform-specific system information, you can use libraries like libproc (for Linux) or PSAPI (for Windows). Familiarize yourself with system calls, process management, and memory management to collect the required information for each process.
-
-Both projects will help you develop skills in different areas of computer science, such as cryptography, systems programming, and working with low-level APIs.
-
+Choose a language like C, C++, or Rust for this project, as they offer low-level access to system resources. 
+For platform-specific system information, you can use libraries like libproc (for Linux) or PSAPI (for Windows). 
+Familiarize yourself with system calls, process management, and memory management to collect the required information for each process.
 
 Current Tasks:
  - Find and put cpu utilization information in cpuinfo.hpp
