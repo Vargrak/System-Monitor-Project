@@ -17,22 +17,15 @@ cpuinfo::cpuinfo() {
  */
 void cpuinfo::updateInfo() {
     if (!this->threads.empty()) {
+        this->physical_cores.erase(this->physical_cores.begin(), this->physical_cores.end());
+        this->physical_cores.shrink_to_fit();
+
         for (auto thread : this->threads) {
             delete thread;
         }
 
-        this->threads.clear();
+        this->threads.erase(this->threads.begin(), this->threads.end());
         this->threads.shrink_to_fit();
-    }
-
-    if (!this->physical_cores.empty()) {
-        for (auto core : this->physical_cores) {
-            delete core;
-        }
-
-
-        this->physical_cores.clear();
-        this->physical_cores.shrink_to_fit();
     }
 
     std::vector<std::string> cputext = file_loader::load_file("/proc/cpuinfo");
@@ -168,6 +161,7 @@ void cpuinfo::updateInfo() {
     }
 
     getUniquePhysicalCores();
+    cputext.clear();
 }
 
 /**
@@ -316,15 +310,12 @@ std::vector<cpuinfo::cpu *> cpuinfo::getUniquePhysicalCores() {
         int total_cache = 0;
         double avg_clock = 0;
         int no_threads = 0;
-        int thread_id = 0;
-        int core_id = 0;
+
 
         //Accumulate info from threads
         for (auto thread : this->threads) {
-            thread_id = thread->getPhysicalID();
-            core_id = core->getPhysicalID();
 
-            if (thread_id == core_id) {
+            if (thread->getPhysicalID() == core->getPhysicalID()) {
                 total_cache += thread->getCache();
                 avg_clock += thread->getClockSpeed();
                 no_threads++;

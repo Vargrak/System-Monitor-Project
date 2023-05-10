@@ -42,6 +42,3 @@ pid::pid(int process) {
     this->nice = tmp_stat.size() > 0 ? std::stoi(tmp_stat[18]) : 0;
 }
 
-
-
-

@@ -64,7 +64,8 @@ class cpuinfo {
 
             public:
 
-                cpu() {}
+                cpu() = default;
+                ~cpu() = default;
 
                 //Getters for accessing the cpu information
                 int getProcessor() { return processor; }

@@ -19,7 +19,7 @@ std::vector<pid *> processes::generateProcessList() {
             delete process;
         }
 
-        this->process_list.clear();
+        this->process_list.erase(this->process_list.begin(), this->process_list.end());
         this->process_list.shrink_to_fit();
     }
 

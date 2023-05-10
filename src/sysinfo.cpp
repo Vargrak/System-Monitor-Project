@@ -1,7 +1,7 @@
 #include "sysinfo.hpp"
 
 /**
- * @brief Construct a new information::information object
+ * @brief Construct a new sysinfo::sysinfo object
  * 
  */
 sysinfo::sysinfo() {
@@ -10,9 +10,8 @@ sysinfo::sysinfo() {
     this->system_processes = processes();
 }
 
-
 /**
- * @brief Updates all information in the information class
+ * @brief Updates all information about the system
  * 
  */
 void sysinfo::updateAllInfo() {

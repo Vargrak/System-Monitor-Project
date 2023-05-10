@@ -258,6 +258,8 @@ void mem::updateInfo() {
 
         }
     }
+
+    memtext.clear();
 }
 
 /**
