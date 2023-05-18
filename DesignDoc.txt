@@ -24,10 +24,7 @@ For platform-specific system information, you can use libraries like libproc (fo
 Familiarize yourself with system calls, process management, and memory management to collect the required information for each process.
 
 Current Tasks:
- - Find and put cpu utilization information in cpuinfo.hpp
- - Formulate the information into graphs in sysinfo.hpp
-    - Find how to formulate graphs easily displayed in ncurses
-        - Find out ways of displaying with ncurses
+ - Formulate the information into graphs with QT
 
 - Add different windows with different information and graphs
     - Separate memory, cpu, and processes into different windows

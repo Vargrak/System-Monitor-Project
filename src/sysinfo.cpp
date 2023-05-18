@@ -16,6 +16,8 @@ sysinfo::sysinfo() {
  */
 void sysinfo::updateAllInfo() {
     this->system_cpu.updateInfo();
+
     this->system_mem.updateInfo();
+    
     this->system_processes.updateInfo();
 }

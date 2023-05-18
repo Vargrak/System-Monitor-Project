@@ -40,6 +40,14 @@ class string_helper {
      */
     static std::vector<std::string> split_string(std::string str);
 
+    /**
+     * @brief Removes all empty strings from a vector of strings.
+     * 
+     * @param str The vector of strings to remove empty strings from.
+     * @return std::vector<std::string> The vector of strings without empty strings.
+     */
+    static std::vector<std::string> remove_empty_strings(std::vector<std::string> str);
+
     private:
 
     /**

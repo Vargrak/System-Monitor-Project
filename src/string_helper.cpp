@@ -77,6 +77,23 @@ std::vector<std::string> string_helper::split_string(std::string str) {
     return split_string;
 }
 
+/**
+ * @brief Removes all empty strings from a vector of strings.
+ * 
+ * @param str The vector of strings to remove empty strings from.
+ * @return std::vector<std::string> The vector of strings without empty strings.
+ */
+std::vector<std::string> string_helper::remove_empty_strings(std::vector<std::string> str) {
+    std::vector<std::string> non_empty;
+
+    for (std::string line : str) {
+        if (line != "") {
+            non_empty.push_back(line);
+        }
+    }
+
+    return non_empty;
+}
 
 /**
  * @brief Checks if a character is whitespace.

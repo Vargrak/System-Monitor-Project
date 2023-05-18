@@ -6,7 +6,10 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <sys/param.h>
+#include <sys/types.h>
 #include <tuple>
+#include <unistd.h>
 #include <vector>
 
 #include "file_loader.hpp"
@@ -62,6 +65,11 @@ class cpuinfo {
                 std::vector<std::string> address_sizes;
                 std::vector<std::string> power_management;
 
+                //extra
+                double cpu_utilization = -1;
+                double time_idle = -1;
+                double time_total = -1;
+
             public:
 
                 cpu() = default;
@@ -104,6 +112,10 @@ class cpuinfo {
                 std::vector<std::string> getAddressSizes() { return address_sizes; }
                 std::vector<std::string> getPowerManagement() { return power_management; }
 
+                double getCPUUtilization() { return cpu_utilization; }
+                double getTimeIdle() { return time_idle; }
+                double getTimeTotal() { return time_total; }
+
                 //Setters for updating the cpu information
                 void setProcessor(int Processor) { this->processor = Processor; }
                 void setVendorID(std::string VendorId) { this->vendor_id = VendorId; }
@@ -141,6 +153,10 @@ class cpuinfo {
                 void setAddressSizes(std::vector<std::string> AddressSizes) { this->address_sizes = AddressSizes; }
                 void setPowerManagement(std::vector<std::string> PowerManagement) { this->power_management = PowerManagement; }
 
+                void setCPUUtilization(double CPUUtilization) { this->cpu_utilization = CPUUtilization; }
+                void setTimeIdle(double TimeIdle) { this->time_idle = TimeIdle; }
+                void setTimeTotal(double TimeTotal) { this->time_total = TimeTotal; }
+
         };
 
         enum FIELDS {
@@ -162,6 +178,8 @@ class cpuinfo {
         //Fields   
         std::vector<cpu *> threads;
         std::vector<cpu *> physical_cores;
+        double total_cpu_utilization;
+        double total_time_idle;
 
                 /**
          * @brief Get/Update information about the physical cores
@@ -177,6 +195,8 @@ class cpuinfo {
          * 
          */
         cpuinfo();
+
+        void createInfo();
 
         /**
          * @brief Updates the information stored in the cpuinfo class.
@@ -209,6 +229,22 @@ class cpuinfo {
          * @return std::vector<cpu *> containing the physical cores
          */
         std::vector<cpu *> getPhysicalCores();
+
+        /**
+         * @brief Get the Utilization of each cpu thread
+         * 
+         * @return std::vector<std::string> vector of strings containing the utilization of each cpu thread
+         */
+        void pollUtilization();
+
+
+        double getTotalCPUUtilization() { return total_cpu_utilization; }
+        double getTotalTimeIdle() { return total_time_idle; }
+
+        void setTotalCPUUtilization(double TotalCPUUtilization) { this->total_cpu_utilization = TotalCPUUtilization; }
+        void setTotalTimeIdle(double TotalTimeIdle) { this->total_time_idle = TotalTimeIdle; }
+
+
 };
 
 #endif

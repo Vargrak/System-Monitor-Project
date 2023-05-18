@@ -1,0 +1,5 @@
+/home/birb/Github-Repos/System-Monitor-Project/build/CMakeFiles/SystemResourceMonitor.dir
+/home/birb/Github-Repos/System-Monitor-Project/build/CMakeFiles/edit_cache.dir
+/home/birb/Github-Repos/System-Monitor-Project/build/CMakeFiles/rebuild_cache.dir
+/home/birb/Github-Repos/System-Monitor-Project/build/CMakeFiles/SystemResourceMonitor_autogen_timestamp_deps.dir
+/home/birb/Github-Repos/System-Monitor-Project/build/CMakeFiles/SystemResourceMonitor_autogen.dir

@@ -8,14 +8,14 @@
  */
 
 cpuinfo::cpuinfo() {
-    this->updateInfo();
+    this->createInfo();
 }
 
 /**
  * @brief Updates the information stored in the cpuinfo class.
  * 
  */
-void cpuinfo::updateInfo() {
+void cpuinfo::createInfo() {
     if (!this->threads.empty()) {
         this->physical_cores.erase(this->physical_cores.begin(), this->physical_cores.end());
         this->physical_cores.shrink_to_fit();
@@ -161,6 +161,152 @@ void cpuinfo::updateInfo() {
     }
 
     getUniquePhysicalCores();
+    pollUtilization();
+
+
+    cputext.clear();
+}
+
+/**
+ * @brief Updates the information stored in the cpuinfo class.
+ * 
+ */
+void cpuinfo::updateInfo() {
+    std::vector<std::string> cputext = file_loader::load_file("/proc/cpuinfo");
+    auto thread = this->threads.begin();
+    
+    for (auto line : cputext) {
+        std::string field = string_helper::remove_whitespace(line.substr(0, line.find(":") + 1));
+        std::string value = line.substr(line.find(":") + 1);
+
+        try {
+            switch (field_map[field]) {
+                case processor:
+                    (*thread)->setProcessor(std::stoi(value));
+                    break;
+
+                case vendor_id:
+                    (*thread)->setVendorID(value);
+                    break;
+
+                case cpu_family:
+                    (*thread)->setCPUFamily(std::stoi(value));
+                    break;
+
+                case model:
+                    (*thread)->setModel(std::stoi(value));
+                    break;
+
+                case model_name:
+                    (*thread)->setModelName(value);
+                    break;
+
+                case stepping:
+                    (*thread)->setStepping(std::stoi(value));
+                    break;
+
+                case microcode:
+                    (*thread)->setMicrocode(value);
+                    break;
+
+                case clock_speed:
+                    (*thread)->setClockSpeed(std::stod(value));
+                    break;
+
+                case cache:
+                    (*thread)->setCache(std::stoi(value));
+                    break;
+
+                case physical_id:
+                    (*thread)->setPhysicalID(std::stoi(value));
+                    break;
+
+                case siblings:
+                    (*thread)->setSiblings(std::stoi(value));
+                    break;
+
+                case core_id:
+                    (*thread)->setCoreID(std::stoi(value));
+                    break;
+
+                case cpu_cores:
+                    (*thread)->setCPUCores(std::stoi(value));
+                    break;
+
+                case apicid:
+                    (*thread)->setAPICID(std::stoi(value));
+                    break;
+
+                case initial_apicid:
+                    (*thread)->setInitialAPICID(std::stoi(value));
+                    break;
+
+                case fpu:
+                    (*thread)->setFPU(value);
+                    break;
+
+                case fpu_execution:
+                    (*thread)->setFPUExecution(value);
+                    break;
+
+                case cpuid_level:
+                    (*thread)->setCPUIDLevel(std::stoi(value));
+                    break;
+
+                case wp:
+                    (*thread)->setWP(value);
+                    break;
+
+                case tlb_size:
+                    (*thread)->setTLBSize(value);
+                    break;
+
+                case clflush_size:
+                    (*thread)->setCLFlushSize(std::stoi(value));
+                    break;
+
+                case cache_alignment:
+                    (*thread)->setCacheAlignment(std::stoi(value));
+                    break;
+
+                case flags:
+                    (*thread)->setFlags(string_helper::split_string(value, ' '));
+                    break;
+
+                case bugs:
+                    (*thread)->setBugs(string_helper::split_string(value, ' '));
+                    break;
+
+                case bogomips:
+                    (*thread)->setBogomips(std::stod(value));
+                    break;
+
+                case address_sizes:
+                    (*thread)->setAddressSizes(string_helper::split_string(value, ' '));
+                    break;
+
+                case power_management:
+                    (*thread)->setPowerManagement(string_helper::split_string(value, ' '));
+                    break;
+
+                case new_thread:
+                    thread++;
+                    break;
+
+                default:
+                    std::cout << "Error: " << field << " is not a valid field" << std::endl;
+                    break;
+            }
+
+        } catch(const std::exception& e) {
+            continue;
+        }  
+    }
+
+    getUniquePhysicalCores();
+    pollUtilization();
+
+
     cputext.clear();
 }
 
@@ -329,6 +475,54 @@ std::vector<cpuinfo::cpu *> cpuinfo::getUniquePhysicalCores() {
     }
 
     return unique_physical_cores;
+}
+
+void cpuinfo::pollUtilization() {
+    this->total_cpu_utilization = 0;
+    std::vector<std::string> procstat = file_loader::load_file("/proc/stat");
+
+    auto strIter = procstat.begin();
+    auto cpuIter = this->threads.begin();
+
+    while (strIter != procstat.end() && cpuIter != this->threads.end()) {
+        std::vector<std::string> line = string_helper::remove_empty_strings(string_helper::split_string(*strIter, ' '));
+
+        double user = std::stod(line[1]);
+        double nice = std::stod(line[2]);
+        double system = std::stod(line[3]);
+        double idle = std::stod(line[4]);
+        double iowait = std::stod(line[5]);
+        double irq = std::stod(line[6]);
+        double softirq = std::stod(line[7]);
+        double steal = std::stod(line[8]);
+
+        double idle_time = idle + iowait;
+        double non_idle_time = user + nice + system + irq + softirq + steal;
+        double total_time = idle_time + non_idle_time;
+
+        double prev_total = (*cpuIter)->getTimeTotal();
+        double prev_idle = (*cpuIter)->getTimeIdle();
+
+        double total_delta = total_time - prev_total;
+        double idle_delta = idle_time - prev_idle;
+
+        double diff = total_delta - idle_delta;
+
+        double utilization = diff / total_delta;
+
+        this->total_cpu_utilization += utilization;
+
+        (*cpuIter)->setCPUUtilization(utilization);
+        (*cpuIter)->setTimeIdle(idle_time);
+        (*cpuIter)->setTimeTotal(total_time);
+
+        cpuIter++;
+        strIter++;
+    }
+
+    this->total_cpu_utilization /= (double)this->threads.size();
+
+    procstat.clear();
 }
 
 /**
