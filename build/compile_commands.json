@@ -1,61 +1,61 @@
 [
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/SystemResourceMonitor_autogen/mocs_compilation.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/mocs_compilation.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/SystemResourceMonitor_autogen/mocs_compilation.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/mocs_compilation.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/mocs_compilation.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/SystemResourceMonitor_autogen/mocs_compilation.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/MainWindow.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/MainWindow.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/MainWindow.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/MainWindow.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/MainWindow.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/MainWindow.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/cpuinfo.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/cpuinfo.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/cpuinfo.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/cpuinfo.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/cpuinfo.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/cpuinfo.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/file_loader.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/file_loader.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/file_loader.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/file_loader.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/file_loader.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/file_loader.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/main.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/main.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/main.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/main.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/main.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/main.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/mem.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/mem.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/mem.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/mem.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/mem.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/mem.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/pid.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/pid.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/pid.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/pid.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/pid.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/pid.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/processes.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/processes.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/processes.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/processes.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/processes.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/processes.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/string_helper.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/string_helper.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/string_helper.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/string_helper.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/string_helper.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/string_helper.cpp.o"
 },
 {
   "directory": "/home/birb/Github-Repos/System-Monitor-Project/build",
-  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -g -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/sysinfo.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/sysinfo.cpp",
+  "command": "/usr/bin/g++ -DFMT_SHARED -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/birb/Github-Repos/System-Monitor-Project/build -I/home/birb/Github-Repos/System-Monitor-Project -I/home/birb/Github-Repos/System-Monitor-Project/build/SystemResourceMonitor_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtWidgets -O3 -DNDEBUG -fPIC -o CMakeFiles/SystemResourceMonitor.dir/src/sysinfo.cpp.o -c /home/birb/Github-Repos/System-Monitor-Project/src/sysinfo.cpp",
   "file": "/home/birb/Github-Repos/System-Monitor-Project/src/sysinfo.cpp",
   "output": "CMakeFiles/SystemResourceMonitor.dir/src/sysinfo.cpp.o"
 }
