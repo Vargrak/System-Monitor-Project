@@ -1,4 +1,6 @@
 # System-Monitor-Project
+Personal Project
+
 System Resource Monitor built in C++ that utilizes QT for an interface.
 Built for windows, scans /proc for information, might update in the future to include windows support.
 
